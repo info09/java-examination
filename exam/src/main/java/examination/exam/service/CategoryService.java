@@ -1,0 +1,49 @@
+package examination.exam.service;
+
+import examination.exam.dto.PageResponse;
+import examination.exam.dto.categories.CategoryDto;
+import examination.exam.dto.categories.CategorySearch;
+import examination.exam.entity.Category;
+import examination.exam.repository.CategoryRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class CategoryService {
+    private final CategoryRepository categoryRepository;
+
+    public List<CategoryDto> getAllCategories(){
+        var categories = categoryRepository.findAll();
+        return categories.stream().map(Category::getCategoryDto).collect(Collectors.toList());
+    }
+
+    public CategoryDto getCategoryById(String id){
+        var category = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException());
+        return category.getCategoryDto();
+    }
+
+    public CategoryDto getCategoryByName(String name){
+        var category = categoryRepository.findByName(name).orElseThrow(() -> new RuntimeException());
+        return category.getCategoryDto();
+    }
+
+    public PageResponse<CategoryDto> GetCategoriesPaging(CategorySearch search){
+        Pageable pageable = PageRequest.of(search.getPageNumber() - 1, search.getPageSize());
+        Category categoryExample = new Category();
+        categoryExample.setName(search.getName());
+        ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreNullValues().withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains());
+        Example<Category> example = Example.of(categoryExample, matcher);
+
+        var list = categoryRepository.findAll(example, pageable);
+
+        return PageResponse.<CategoryDto>builder().build();
+    }
+}
