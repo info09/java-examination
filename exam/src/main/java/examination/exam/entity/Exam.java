@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 @Document("exam")
@@ -21,7 +22,7 @@ public class Exam {
     private String sortDescription;
     private int numberOfQuestions;
     private String duration;
-    private List<Question> questions;
+    private Collection<Question> questions;
     private Level level;
     private LocalDate dateCreated;
     private String ownerUserId;

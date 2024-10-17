@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 @Document("question")
@@ -23,7 +24,7 @@ public class Question {
     private Level level;
     private String categoryId;
     private String categoryName;
-    private List<Answer> answers;
+    private Collection<Answer> answers;
     private String explain;
     private LocalDate dateCreated;
     private String ownerUserId;
