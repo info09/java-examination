@@ -3,10 +3,10 @@ package examination.exam.dto;
 import lombok.*;
 
 @Getter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
+@Builder
 public class PagingParameters {
     private static final int MAX_PAGE_SIZE = 50;
     private int pageNumber = 1;

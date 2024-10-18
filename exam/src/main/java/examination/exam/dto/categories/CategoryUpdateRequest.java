@@ -1,12 +1,13 @@
 package examination.exam.dto.categories;
 
-import examination.exam.dto.PagingParameters;
 import lombok.*;
 
-@Getter
 @Setter
+@Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategorySearch extends PagingParameters {
+public class CategoryUpdateRequest {
     private String name;
+    private String urlPath;
 }
