@@ -1,4 +1,4 @@
-package examination.exam.entity;
+package examination.exam.entity.user_aggregate;
 
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;

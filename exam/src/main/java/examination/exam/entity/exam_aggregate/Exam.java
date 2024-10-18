@@ -1,13 +1,14 @@
-package examination.exam.entity;
+package examination.exam.entity.exam_aggregate;
 
-import examination.exam.entity.enums.Level;
+import examination.exam.entity.question_aggregate.Question;
+import examination.exam.dto.enums.Level;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.Collection;
-import java.util.List;
+import java.util.Date;
 
 @Document("exam")
 @Getter
@@ -24,7 +25,7 @@ public class Exam {
     private String duration;
     private Collection<Question> questions;
     private Level level;
-    private LocalDate dateCreated;
+    private Instant dateCreated;
     private String ownerUserId;
     private int numberOfQuestionCorrectForPass;
     private boolean isTimeRestricted;

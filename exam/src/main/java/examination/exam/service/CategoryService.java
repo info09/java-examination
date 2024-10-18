@@ -4,10 +4,10 @@ import examination.exam.dto.PageResponse;
 import examination.exam.dto.categories.CategoryCreateRequest;
 import examination.exam.dto.categories.CategoryDto;
 import examination.exam.dto.categories.CategorySearch;
-import examination.exam.entity.Category;
+import examination.exam.entity.category_aggregate.Category;
 import examination.exam.exception.AppException;
 import examination.exam.exception.ErrorCode;
-import examination.exam.repository.CategoryRepository;
+import examination.exam.entity.category_aggregate.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -39,7 +39,7 @@ public class CategoryService {
     }
 
     public PageResponse<CategoryDto> getCategoriesPaging(CategorySearch search){
-        Pageable pageable = PageRequest.of(search.getPageNumber() - 1, search.getPageSize());
+        Pageable pageable = PageRequest.of(search.getPageIndex() - 1, search.getPageSize());
         Category categoryExample = new Category();
         categoryExample.setName(search.getName());
         ExampleMatcher matcher = ExampleMatcher.matching()
@@ -49,7 +49,7 @@ public class CategoryService {
         var list = categoryRepository.findAll(example, pageable);
 
         return PageResponse.<CategoryDto>builder()
-                .currentPage(search.getPageNumber())
+                .currentPage(search.getPageIndex())
                 .totalPage(list.getTotalPages())
                 .pageSize(search.getPageSize())
                 .totalElement(list.getTotalElements())

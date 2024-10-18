@@ -1,4 +1,4 @@
-package examination.exam.entity;
+package examination.exam.entity.category_aggregate;
 
 import examination.exam.dto.categories.CategoryDto;
 import lombok.*;

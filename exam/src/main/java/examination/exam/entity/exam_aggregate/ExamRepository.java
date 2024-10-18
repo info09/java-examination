@@ -1,6 +1,5 @@
-package examination.exam.repository;
+package examination.exam.entity.exam_aggregate;
 
-import examination.exam.entity.Exam;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

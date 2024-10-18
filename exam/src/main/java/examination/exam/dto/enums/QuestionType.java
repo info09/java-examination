@@ -1,4 +1,4 @@
-package examination.exam.entity.enums;
+package examination.exam.dto.enums;
 
 public enum QuestionType {
     SingleSelection,

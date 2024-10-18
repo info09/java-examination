@@ -40,10 +40,11 @@ public class CategoriesController {
     ApiResponse<PageResponse<CategoryDto>> getCategoriesPaging( @RequestParam(required = false) String name,
                                                                 @RequestParam(defaultValue = "0") int page,
                                                                 @RequestParam(defaultValue = "10") int size) {
-        var search = new CategorySearch();
-        search.setPageNumber(page);
-        search.setPageSize(size);
-        search.setName(name);
+        var search = CategorySearch.builder()
+                .name(name)
+                .pageIndex(page)
+                .pageSize(size)
+                .build();
 
         return ApiResponse.<PageResponse<CategoryDto>>builder().result(categoryService.getCategoriesPaging(search)).build();
     }

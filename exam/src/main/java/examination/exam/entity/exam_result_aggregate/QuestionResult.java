@@ -1,12 +1,11 @@
-package examination.exam.entity;
+package examination.exam.entity.exam_result_aggregate;
 
-import examination.exam.entity.enums.Level;
+import examination.exam.dto.enums.Level;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.Collection;
-import java.util.List;
 
 @Document("question_result")
 @Getter

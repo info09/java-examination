@@ -1,6 +1,5 @@
-package examination.exam.repository;
+package examination.exam.entity.category_aggregate;
 
-import examination.exam.entity.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
