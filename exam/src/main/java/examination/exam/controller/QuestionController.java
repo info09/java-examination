@@ -53,7 +53,7 @@ public class QuestionController {
         return ApiResponse.<QuestionDto>builder().result(questionService.createQuestion(request)).build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping()
     public ApiResponse<QuestionDto> updateQuestion(@RequestBody QuestionUpdateRequest request) {
         return ApiResponse.<QuestionDto>builder().result(questionService.updateQuestion(request)).build();
     }

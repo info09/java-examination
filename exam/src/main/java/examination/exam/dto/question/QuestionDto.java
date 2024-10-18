@@ -2,6 +2,7 @@ package examination.exam.dto.question;
 
 import examination.exam.dto.enums.Level;
 import examination.exam.dto.enums.QuestionType;
+import examination.exam.entity.question_aggregate.Question;
 import lombok.*;
 
 import java.time.Instant;
@@ -23,4 +24,17 @@ public class QuestionDto {
     private Instant dateCreated;
     private String ownerUserId;
     private String categoryName;
+
+    public Question toQuestion() {
+        return Question.builder()
+                .id(id)
+                .content(content)
+                .questionType(questionType)
+                .level(level)
+                .categoryId(categoryId)
+                .explain(explain)
+                .dateCreated(dateCreated)
+                .ownerUserId(ownerUserId)
+                .build();
+    }
 }
