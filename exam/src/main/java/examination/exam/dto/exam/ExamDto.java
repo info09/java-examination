@@ -15,7 +15,7 @@ import java.util.List;
 public class ExamDto {
     private String id;
     private String name;
-    private String sortDescription;
+    private String shortDescription;
     private String content;
     private String duration;
     private int numberOfQuestions;

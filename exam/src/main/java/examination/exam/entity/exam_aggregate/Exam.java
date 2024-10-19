@@ -22,7 +22,7 @@ public class Exam {
     @MongoId
     private String id;
     private String name;
-    private String sortDescription;
+    private String shortDescription;
     private String content;
     private int numberOfQuestions;
     private String duration;
@@ -39,6 +39,7 @@ public class Exam {
         return ExamDto.builder()
                 .id(id)
                 .name(name)
+                .shortDescription(shortDescription)
                 .content(content)
                 .numberOfQuestions(numberOfQuestions)
                 .duration(duration)
