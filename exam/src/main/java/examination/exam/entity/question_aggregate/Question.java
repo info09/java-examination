@@ -3,6 +3,7 @@ package examination.exam.entity.question_aggregate;
 import examination.exam.dto.enums.Level;
 import examination.exam.dto.enums.QuestionType;
 import examination.exam.dto.question.QuestionDto;
+import examination.exam.entity.exam_result_aggregate.QuestionResult;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
@@ -41,6 +42,17 @@ public class Question {
                 .explain(explain)
                 .dateCreated(dateCreated)
                 .ownerUserId(ownerUserId)
+                .build();
+    }
+
+    public QuestionResult getQuestionResult(){
+        return QuestionResult.builder()
+                .id(id)
+                .content(content)
+                .questionType(questionType)
+                .level(level)
+                .answers(answers.stream().map(Answer::getAnswerResult).toList())
+                .explain(explain)
                 .build();
     }
 }

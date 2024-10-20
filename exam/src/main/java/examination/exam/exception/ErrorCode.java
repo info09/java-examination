@@ -17,7 +17,8 @@ public enum ErrorCode {
     USERNAME_IS_MISSING(1010, "Username is missing", HttpStatus.BAD_REQUEST),
     CATEGORY_NOT_EXISTED(1011, "Category not existed", HttpStatus.BAD_REQUEST),
     QUESTION_NOT_EXISTED(1012, "Question not existed", HttpStatus.BAD_REQUEST),
-    EXAM_NOT_EXISTED(1013, "Exam not existed" , HttpStatus.BAD_REQUEST)
+    EXAM_NOT_EXISTED(1013, "Exam not existed" , HttpStatus.BAD_REQUEST),
+    EXAM_RESULT_NOT_EXISTED(1014, "ExamResult not existed" , HttpStatus.BAD_REQUEST)
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {
