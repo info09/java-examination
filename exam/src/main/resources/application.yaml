@@ -15,3 +15,13 @@ spring:
   data:
     mongodb:
       uri: mongodb://root:root@localhost:27017/exam?authSource=admin
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8181/realms/exam
+
+idp:
+  url: http://localhost:8181
+  client_id: exam_app
+  client_secret: vGx8LzShJH4jaRON0k3TOqdG6RLnY9HE
