@@ -18,7 +18,8 @@ public enum ErrorCode {
     CATEGORY_NOT_EXISTED(1011, "Category not existed", HttpStatus.BAD_REQUEST),
     QUESTION_NOT_EXISTED(1012, "Question not existed", HttpStatus.BAD_REQUEST),
     EXAM_NOT_EXISTED(1013, "Exam not existed" , HttpStatus.BAD_REQUEST),
-    EXAM_RESULT_NOT_EXISTED(1014, "ExamResult not existed" , HttpStatus.BAD_REQUEST)
+    EXAM_RESULT_NOT_EXISTED(1014, "ExamResult not existed" , HttpStatus.BAD_REQUEST),
+    EXAM_TIME_OUT(1015, "Exam time out" , HttpStatus.BAD_REQUEST)
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {
