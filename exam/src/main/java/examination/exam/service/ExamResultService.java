@@ -7,6 +7,7 @@ import examination.exam.entity.exam_result_aggregate.AnswerResult;
 import examination.exam.entity.exam_result_aggregate.ExamResult;
 import examination.exam.entity.exam_result_aggregate.ExamResultRepository;
 import examination.exam.entity.exam_result_aggregate.QuestionResult;
+import examination.exam.entity.profile_aggregate.ProfileRepository;
 import examination.exam.entity.question_aggregate.Answer;
 import examination.exam.entity.question_aggregate.Question;
 import examination.exam.exception.AppException;
@@ -16,18 +17,19 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ExamResultService {
     private final ExamResultRepository examResultRepository;
     private final ExamRepository examRepository;
+    private final ProfileRepository profileRepository;
 
     public ExamResultDto getById(String id){
         var examResult = examResultRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.EXAM_RESULT_NOT_EXISTED));
@@ -58,13 +60,14 @@ public class ExamResultService {
     }
 
     public ExamResultDto startExam(StartExamRequest request){
-        var userId = "123";
+        var userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        var profile = profileRepository.findByUserId(userId).orElseThrow(() -> new AppException(ErrorCode.PROFILE_NOT_EXISTED));
         var exam = examRepository.findById(request.getExamId()).orElseThrow(() -> new AppException(ErrorCode.EXAM_NOT_EXISTED));
-        var examResult = new ExamResult(userId, request.getExamId());
+        var examResult = new ExamResult(profile.getId(), request.getExamId());
         examResult.setExamTitle(exam.getName());
         if(exam.isTimeRestricted()){
             var duration = exam.getDuration().split(":");
-            var durationTimeSpan = Duration.ofMinutes(Integer.parseInt(duration[0]) * 60L + Integer.parseInt(duration[1]));
+            var durationTimeSpan = Duration.ofSeconds(Integer.parseInt(duration[0]) * 60L + Integer.parseInt(duration[1]));
             examResult.setExamFinishDate(Instant.now().plus(durationTimeSpan));
         }
 
@@ -76,11 +79,10 @@ public class ExamResultService {
         return examResult.getExamResultDto();
     }
 
-    public Void skipExam(SkipExamRequest request){
+    public void skipExam(SkipExamRequest request){
         var examResult = examResultRepository.findById(request.getExamResultId()).orElseThrow(() -> new AppException(ErrorCode.EXAM_RESULT_NOT_EXISTED));
 
         examResultRepository.delete(examResult);
-        return null;
     }
 
     public ExamResultDto submitQuestion(NextQuestionRequest request){

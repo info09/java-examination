@@ -2,7 +2,6 @@ package examination.exam.controller;
 
 import examination.exam.dto.ApiResponse;
 import examination.exam.dto.PageResponse;
-import examination.exam.dto.enums.Level;
 import examination.exam.dto.exam.ExamCreateRequest;
 import examination.exam.dto.exam.ExamDto;
 import examination.exam.dto.exam.ExamSearch;
