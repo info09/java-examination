@@ -1,32 +1,97 @@
-import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {
+  HashLocationStrategy,
+  LocationStrategy,
+  PathLocationStrategy,
+} from '@angular/common';
+import { BrowserModule, Title } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
+import { NgScrollbarModule } from 'ngx-scrollbar';
+
+// Import routing module
 import { AppRoutingModule } from './app-routing.module';
+
+// Import app component
 import { AppComponent } from './app.component';
 
-// Cấu hình Keycloak
-const keycloakConfig = {
-  url: 'http://localhost:8181',
-  realm: 'exam',
-  clientId: 'exam_angular_app',
-};
+// Import containers
+import {
+  DefaultFooterComponent,
+  DefaultHeaderComponent,
+  DefaultLayoutComponent,
+} from './containers';
 
-function initializeKeycloak(keycloak: KeycloakService) {
-  return () =>
-    keycloak.init({
-      config: keycloakConfig,
-      initOptions: {
-        onLoad: 'login-required', // 'login-required' hoặc 'check-sso'
-        checkLoginIframe: false,
-      },
-    });
-}
+import {
+  AvatarModule,
+  BadgeModule,
+  BreadcrumbModule,
+  ButtonGroupModule,
+  ButtonModule,
+  CardModule,
+  DropdownModule,
+  FooterModule,
+  FormModule,
+  GridModule,
+  HeaderModule,
+  ListGroupModule,
+  NavModule,
+  ProgressModule,
+  SharedModule,
+  SidebarModule,
+  TabsModule,
+  UtilitiesModule,
+} from '@coreui/angular';
+
+import { IconModule, IconSetService } from '@coreui/icons-angular';
+import { KeycloakService } from 'keycloak-angular';
+import { initializeKeycloak } from './app-init';
+
+const APP_CONTAINERS = [
+  DefaultFooterComponent,
+  DefaultHeaderComponent,
+  DefaultLayoutComponent,
+];
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, KeycloakAngularModule],
+  declarations: [AppComponent, ...APP_CONTAINERS],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    AvatarModule,
+    BreadcrumbModule,
+    FooterModule,
+    DropdownModule,
+    GridModule,
+    HeaderModule,
+    SidebarModule,
+    IconModule,
+    NavModule,
+    ButtonModule,
+    FormModule,
+    UtilitiesModule,
+    ButtonGroupModule,
+    ReactiveFormsModule,
+    SidebarModule,
+    SharedModule,
+    TabsModule,
+    ListGroupModule,
+    ProgressModule,
+    BadgeModule,
+    ListGroupModule,
+    CardModule,
+    NgScrollbarModule,
+  ],
   providers: [
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy,
+    },
+    IconSetService,
+    Title,
+    KeycloakService,
     {
       provide: APP_INITIALIZER,
       useFactory: initializeKeycloak,
