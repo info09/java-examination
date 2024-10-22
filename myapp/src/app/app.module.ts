@@ -1,3 +1,5 @@
+import { GlobalHttpInterceptorService } from './shared/interceptors/error-handler.interceptor';
+import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import {
   HashLocationStrategy,
@@ -47,6 +49,11 @@ import {
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 import { KeycloakService } from 'keycloak-angular';
 import { initializeKeycloak } from './app-init';
+import { AuthService } from './shared/services/auth.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AlertService } from './shared/services/alert.service';
+import { CategoriesService } from './shared/services/categories.service';
+import { MessageService } from 'primeng/api';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -98,6 +105,20 @@ const APP_CONTAINERS = [
       multi: true,
       deps: [KeycloakService],
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: GlobalHttpInterceptorService,
+      multi: true,
+    },
+    AlertService,
+    AuthService,
+    CategoriesService,
+    MessageService,
   ],
   bootstrap: [AppComponent],
 })

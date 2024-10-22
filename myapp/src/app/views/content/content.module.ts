@@ -17,6 +17,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CategoryComponent } from './category/category.component';
 import { ContentRoutingModule } from './content-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { CategoriesService } from 'src/app/shared/services/categories.service';
 
 @NgModule({
   declarations: [CategoryComponent],
@@ -37,6 +39,8 @@ import { ContentRoutingModule } from './content-routing.module';
     ChartjsModule,
     AvatarModule,
     TableModule,
+    HttpClientModule,
   ],
+  providers: [CategoriesService],
 })
 export class ContentModule {}
